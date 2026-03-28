@@ -1,7 +1,7 @@
 package com.store.service;
 
-import com.store.domain.PmsProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.store.domain.PmsProduct;
 
 /**
 * @author 19256
