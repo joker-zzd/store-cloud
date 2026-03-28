@@ -33,6 +33,7 @@
         <spring-cloud-alibaba.version>2023.0.1.0</spring-cloud-alibaba.version>
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
         <mybatis-spring.version>3.0.4</mybatis-spring.version>
+        <jjwt.version>0.12.5</jjwt.version>
         <hutool.version>5.8.22</hutool.version>
         <swagger.version>3.0.3</swagger.version>
         <mysql.version>8.0.32</mysql.version>

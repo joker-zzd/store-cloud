@@ -25,3 +25,10 @@ spring:
           default:
             connect-timeout: 3000
             read-timeout: 5000
+
+store:
+  security:
+    jwt:
+      secret: store-cloud-auth-refresh-secret-key-2026-demo
+      access-ttl: 30m
+      refresh-ttl: 7d

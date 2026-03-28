@@ -18,4 +18,12 @@
         id,name,role_key,sort,status,create_time,
         update_time
     </sql>
+
+    <select id="selectRoleKeysByUserId" resultType="java.lang.String">
+        select sr.role_key
+        from sys_role sr
+        inner join sys_user_role sur on sr.id = sur.role_id
+        where sur.user_id = #{userId}
+          and sr.status = 1
+    </select>
 </mapper>

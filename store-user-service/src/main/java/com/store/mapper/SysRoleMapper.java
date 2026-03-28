@@ -2,7 +2,10 @@ package com.store.mapper;
 
 import com.store.domain.SysRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @author 19256
@@ -12,7 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SysRoleMapper extends BaseMapper<SysRole> {
-
+    List<String> selectRoleKeysByUserId(@Param("userId") Long userId);
 }
 
 

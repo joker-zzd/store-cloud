@@ -1,5 +1,5 @@
 server:
-  port: 10010
+  port: 8080
 
 spring:
   application:
@@ -38,6 +38,11 @@ spring:
             allowed-methods: "*"
             allowed-headers: "*"
             allow-credentials: true
+
+store:
+  security:
+    jwt:
+      secret: store-cloud-auth-refresh-secret-key-2026-demo
 
 management:
   endpoints:

@@ -2,6 +2,7 @@ package com.store.service;
 
 import com.store.domain.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.store.common.auth.dto.UserAuthInfo;
 
 /**
 * @author 19256
@@ -9,5 +10,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2026-03-28 14:52:47
 */
 public interface SysUserService extends IService<SysUser> {
-
+    UserAuthInfo getAuthInfoByUsername(String username);
 }
