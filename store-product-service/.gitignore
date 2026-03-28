@@ -33,4 +33,4 @@ build/
 .vscode/
 
 # Local-only runtime config
-src/main/resources/bootstrap-prod.yml
+src/main/resources/bootstrap-prod.yaml
