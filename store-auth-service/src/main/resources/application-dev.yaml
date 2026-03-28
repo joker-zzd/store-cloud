@@ -32,3 +32,13 @@ store:
       secret: store-cloud-auth-refresh-secret-key-2026-demo
       access-ttl: 30m
       refresh-ttl: 7d
+
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+

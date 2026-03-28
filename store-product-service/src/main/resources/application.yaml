@@ -1,6 +1,6 @@
-spring :
+spring:
   profiles:
-    action: dev
+    active: dev
   servlet:
     multipart:
       max-request-size: 10MB

@@ -22,3 +22,13 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+

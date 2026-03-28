@@ -6,13 +6,14 @@
     <groupId>com.store</groupId>
     <artifactId>store</artifactId>
     <version>1.0.0</version>
-    <!--    继承spring boot 父工程-->
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.4</version>
         <relativePath/>
     </parent>
+
     <packaging>pom</packaging>
 
     <modules>
@@ -22,6 +23,7 @@
         <module>store-product-service</module>
         <module>store-user-service</module>
     </modules>
+
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -31,33 +33,21 @@
         <store.version>1.0</store.version>
         <spring-cloud.version>2023.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2023.0.1.0</spring-cloud-alibaba.version>
+        <springdoc.version>2.5.0</springdoc.version>
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
         <mybatis-spring.version>3.0.4</mybatis-spring.version>
         <jjwt.version>0.12.5</jjwt.version>
         <hutool.version>5.8.22</hutool.version>
         <swagger.version>3.0.3</swagger.version>
         <mysql.version>8.0.32</mysql.version>
-        <!--        <ali.sdk.core.version>4.14.0</ali.sdk.core.version>-->
-        <!--        <ali.sdk.kms.version>2.15.0</ali.sdk.kms.version>-->
-        <!--        <ali.sdk.oss.version>3.18.0</ali.sdk.oss.version>-->
-        <!--        <ali.sdk.pay.version>4.40.0.ALL</ali.sdk.pay.version>-->
-        <!-- 腾讯云 SDK -->
-        <!--        <tencent.cloud.version>3.1.515</tencent.cloud.version>-->
-        <!--        <tencent.sdk.cos.version>5.10.0</tencent.sdk.cos.version>-->
-        <!--        <tencent.sdk.vod.version>2.1.9</tencent.sdk.vod.version>-->
-        <!-- 分布式/缓存 -->
         <redisson.version>3.19.0</redisson.version>
-        <elasticsearch.version>8.11.0</elasticsearch.version> <!-- Spring Data Elasticsearch 4.x / 5.x 支持 ES 8.x -->
-
-        <!-- 调度与事务 -->
+        <elasticsearch.version>8.11.0</elasticsearch.version>
         <xxl-job-version>2.5.0</xxl-job-version>
         <seata-version>2.5.0</seata-version>
     </properties>
 
-    <!-- 对依赖包进行管理 -->
     <dependencyManagement>
         <dependencies>
-            <!-- Spring Cloud 依赖包管理 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -72,14 +62,16 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- 数据库驱动包管理 -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.mysql</groupId>
                 <artifactId>mysql-connector-j</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
-
-            <!-- mybatis plus 管理 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -95,66 +87,19 @@
                 <artifactId>mybatis-spring</artifactId>
                 <version>${mybatis-spring.version}</version>
             </dependency>
-            <!--knife4j-->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-            <!--腾讯云-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.tencentcloudapi</groupId>-->
-            <!--                <artifactId>tencentcloud-sdk-java</artifactId>-->
-            <!--                <version>${tencent.cloud.version}</version>-->
-            <!--            </dependency>-->
-            <!--ali sdk-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.aliyun</groupId>-->
-            <!--                <artifactId>aliyun-java-sdk-core</artifactId>-->
-            <!--                <version>${ali.sdk.core.version}</version>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.aliyun</groupId>-->
-            <!--                <artifactId>aliyun-java-sdk-kms</artifactId>-->
-            <!--                <version>${ali.sdk.kms.version}</version>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.alipay.sdk</groupId>-->
-            <!--                <artifactId>alipay-sdk-java</artifactId>-->
-            <!--                <version>${ali.sdk.pay.version}</version>-->
-            <!--            </dependency>-->
-            <!--阿里云OSS的SDK-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.aliyun.oss</groupId>-->
-            <!--                <artifactId>aliyun-sdk-oss</artifactId>-->
-            <!--                <version>${ali.sdk.oss.version}</version>-->
-            <!--            </dependency>-->
-            <!--redisson-->
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
-            <!--            &lt;!&ndash;腾讯cos&ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.qcloud</groupId>-->
-            <!--                <artifactId>cos_api</artifactId>-->
-            <!--                <version>${tencent.sdk.cos.version}</version>-->
-            <!--            </dependency>-->
-            <!--            &lt;!&ndash;腾讯vod&ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.qcloud</groupId>-->
-            <!--                <artifactId>vod_api</artifactId>-->
-            <!--                <version>${tencent.sdk.vod.version}</version>-->
-            <!--            </dependency>-->
-
-            <!--            <dependency>-->
-            <!--                <groupId>com.xuxueli</groupId>-->
-            <!--                <artifactId>xxl-job-core</artifactId>-->
-            <!--                <version>${xxl-job-version}</version>-->
-            <!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
+
     <repositories>
         <repository>
             <id>nexus-aliyun</id>

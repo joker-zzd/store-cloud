@@ -1,0 +1,41 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="JavadocDeclaration" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ADDITIONAL_TAGS" value="description,createDate,TableName" />
+    </inspection_tool>
+    <inspection_tool class="VulnerableLibrariesLocal" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="isIgnoringEnabled" value="true" />
+      <option name="ignoredModules">
+        <list>
+          <option value="store-auth-service" />
+          <option value="store-auth-service" />
+          <option value="store-auth-service" />
+          <option value="store-auth-service" />
+          <option value="store-auth-service" />
+          <option value="store-auth-service" />
+        </list>
+      </option>
+      <option name="ignoredPackages">
+        <list>
+          <option value="org.springframework:spring-beans:6.1.5" />
+          <option value="org.springframework:spring-context:6.1.5" />
+          <option value="io.jsonwebtoken:jjwt-impl:0.12.5" />
+          <option value="org.springframework:spring-core:6.1.5" />
+          <option value="org.springframework.boot:spring-boot:3.2.4" />
+          <option value="org.springframework.security:spring-security-crypto:6.2.3" />
+        </list>
+      </option>
+      <option name="ignoredReasons">
+        <list>
+          <option value="Not exploitable" />
+          <option value="In progress" />
+          <option value="Fixed in branch" />
+          <option value="Other" />
+          <option value="Other" />
+          <option value="Other" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
