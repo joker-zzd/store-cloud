@@ -21,8 +21,8 @@ public class OpenApiConfig {
     public OpenAPI authOpenApi() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Store Auth Service API")
-                        .description("Authentication APIs for login, refresh token and logout.")
+                        .title("Store 认证服务 API")
+                        .description("用于登录、refresh token 与退出登录的 Authentication 接口。")
                         .version("v1"));
     }
 }

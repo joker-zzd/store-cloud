@@ -22,8 +22,8 @@ public class OpenApiConfig {
     public OpenAPI userOpenApi() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Store User Service API")
-                        .description("User domain APIs.")
+                        .title("Store 用户服务 API")
+                        .description("用户领域相关接口。")
                         .version("v1"))
                 .addSecurityItem(new SecurityRequirement().addList("BearerAuth"));
     }

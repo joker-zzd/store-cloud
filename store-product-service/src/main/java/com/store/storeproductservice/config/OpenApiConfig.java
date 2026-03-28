@@ -22,8 +22,8 @@ public class OpenApiConfig {
     public OpenAPI productOpenApi() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Store Product Service API")
-                        .description("Product domain APIs.")
+                        .title("Store 商品服务 API")
+                        .description("商品领域相关接口。")
                         .version("v1"))
                 .addSecurityItem(new SecurityRequirement().addList("BearerAuth"));
     }
