@@ -25,7 +25,7 @@ import java.util.Set;
 
 @Component
 public class AccessTokenFilter implements GlobalFilter, Ordered {
-    private static final List<String> PUBLIC_PREFIXES = List.of("/auth/", "/actuator/", "/error", "/webjars/", "/swagger-ui", "/swagger-resources");
+    private static final List<String> PUBLIC_PREFIXES = List.of("/api/auth/", "/actuator/", "/error", "/webjars/", "/swagger-ui", "/swagger-resources");
     private static final Set<String> PUBLIC_PATHS = Set.of("/doc.html", "/swagger-ui.html", "/favicon.ico");
 
     private final GatewayJwtProperties gatewayJwtProperties;

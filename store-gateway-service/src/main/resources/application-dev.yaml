@@ -18,15 +18,23 @@ spring:
         - id: auth-service
           uri: lb://auth-service
           predicates:
-            - Path=/auth/**
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=1
+
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=/user/**
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=1
+
         - id: product-service
           uri: lb://product-service
           predicates:
-            - Path=/product/**
+            - Path=/api/product/**
+          filters:
+            - StripPrefix=1
       globalcors:
         cors-configurations:
           '[/**]':
@@ -49,18 +57,18 @@ knife4j:
     routes:
       - name: Auth Service
         service-name: auth-service
-        url: /auth/v3/api-docs
-        context-path: /auth
+        url: /api/auth/v3/api-docs
+        context-path: /api
         order: 1
       - name: User Service
         service-name: user-service
-        url: /user/v3/api-docs
-        context-path: /user
+        url: /api/user/v3/api-docs
+        context-path: /api
         order: 2
       - name: Product Service
         service-name: product-service
-        url: /product/v3/api-docs
-        context-path: /product
+        url: /api/product/v3/api-docs
+        context-path: /api
         order: 3
 
 management:
