@@ -7,24 +7,16 @@
         <artifactId>store</artifactId>
         <version>1.0.0</version>
     </parent>
-    <groupId>com.store</groupId>
     <artifactId>store-common-service</artifactId>
 
-    <properties>
-        <java.version>17</java.version>
-    </properties>
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
+            <artifactId>mybatis-plus-extension</artifactId>
         </dependency>
     </dependencies>
 
