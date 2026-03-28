@@ -1,0 +1,24 @@
+server:
+  port: 8000
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: uer-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+  config:
+    import: optional:nacos:${spring.application.name}.yaml
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/store?useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 9527.hxj
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
