@@ -1,4 +1,4 @@
-package com.store.storeauthservice.config;
+package com.store.config;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;

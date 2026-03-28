@@ -1,6 +1,6 @@
-package com.store.storeauthservice.service.impl;
+package com.store.service.impl;
 
-import com.store.storeauthservice.service.PasswordService;
+import com.store.service.PasswordService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

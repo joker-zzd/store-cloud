@@ -21,10 +21,12 @@ import reactor.core.publisher.Mono;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Component
 public class AccessTokenFilter implements GlobalFilter, Ordered {
-    private static final List<String> ALLOWLIST_PREFIXES = List.of("/auth/", "/actuator/", "/error");
+    private static final List<String> PUBLIC_PREFIXES = List.of("/auth/", "/actuator/", "/error", "/webjars/", "/swagger-ui", "/swagger-resources");
+    private static final Set<String> PUBLIC_PATHS = Set.of("/doc.html", "/swagger-ui.html", "/favicon.ico");
 
     private final GatewayJwtProperties gatewayJwtProperties;
     private final ObjectMapper objectMapper;
@@ -69,7 +71,11 @@ public class AccessTokenFilter implements GlobalFilter, Ordered {
     }
 
     private boolean isAllowlisted(String path) {
-        return ALLOWLIST_PREFIXES.stream().anyMatch(path::startsWith);
+        return PUBLIC_PATHS.contains(path)
+                || PUBLIC_PREFIXES.stream().anyMatch(path::startsWith)
+                || path.startsWith("/v3/api-docs")
+                || path.endsWith("/v3/api-docs")
+                || path.contains("/v3/api-docs/");
     }
 
     private Mono<Void> unauthorized(ServerWebExchange exchange, String message) {

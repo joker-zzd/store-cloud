@@ -1,4 +1,4 @@
-package com.store.storeauthservice.service;
+package com.store.service;
 
 import com.store.common.auth.dto.AuthTokenResponse;
 import com.store.common.auth.dto.LoginRequest;

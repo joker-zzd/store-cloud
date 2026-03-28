@@ -33,12 +33,8 @@ store:
       access-ttl: 30m
       refresh-ttl: 7d
 
-
 springdoc:
   api-docs:
-    path: /v3/api-docs
+    path: /auth/v3/api-docs
   swagger-ui:
-    path: /swagger-ui.html
-    operations-sorter: alpha
-    tags-sorter: alpha
-
+    enabled: false

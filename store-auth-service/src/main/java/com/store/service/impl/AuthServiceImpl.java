@@ -1,4 +1,4 @@
-package com.store.storeauthservice.service.impl;
+package com.store.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,10 +11,10 @@ import com.store.common.auth.dto.LogoutRequest;
 import com.store.common.auth.dto.RefreshTokenRequest;
 import com.store.common.auth.dto.RefreshTokenSession;
 import com.store.common.auth.dto.UserAuthInfo;
-import com.store.storeauthservice.client.UserServiceClient;
-import com.store.storeauthservice.config.AuthJwtProperties;
-import com.store.storeauthservice.service.AuthService;
-import com.store.storeauthservice.service.PasswordService;
+import com.store.client.UserServiceClient;
+import com.store.config.AuthJwtProperties;
+import com.store.service.AuthService;
+import com.store.service.PasswordService;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

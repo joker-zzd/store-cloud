@@ -1,4 +1,4 @@
-package com.store.storeauthservice.client;
+package com.store.client;
 
 import com.store.common.auth.dto.UserAuthInfo;
 import org.springframework.cloud.openfeign.FeignClient;

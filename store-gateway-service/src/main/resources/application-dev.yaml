@@ -14,10 +14,6 @@ spring:
         server-addr: 127.0.0.1:8848
         file-extension: yaml
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
       routes:
         - id: auth-service
           uri: lb://auth-service
@@ -43,6 +39,29 @@ store:
   security:
     jwt:
       secret: store-cloud-auth-refresh-secret-key-2026-demo
+
+knife4j:
+  gateway:
+    enabled: true
+    strategy: manual
+    tags-sorter: alpha
+    operations-sorter: alpha
+    routes:
+      - name: Auth Service
+        service-name: auth-service
+        url: /auth/v3/api-docs
+        context-path: /auth
+        order: 1
+      - name: User Service
+        service-name: user-service
+        url: /user/v3/api-docs
+        context-path: /user
+        order: 2
+      - name: Product Service
+        service-name: product-service
+        url: /product/v3/api-docs
+        context-path: /product
+        order: 3
 
 management:
   endpoints:

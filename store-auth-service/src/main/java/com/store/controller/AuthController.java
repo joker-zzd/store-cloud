@@ -1,10 +1,10 @@
-package com.store.storeauthservice.controller;
+package com.store.controller;
 
 import com.store.common.auth.dto.AuthTokenResponse;
 import com.store.common.auth.dto.LoginRequest;
 import com.store.common.auth.dto.LogoutRequest;
 import com.store.common.auth.dto.RefreshTokenRequest;
-import com.store.storeauthservice.service.AuthService;
+import com.store.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
