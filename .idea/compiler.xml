@@ -10,12 +10,16 @@
         <module name="store-user-service" />
         <module name="store-product-service" />
         <module name="store-common-service" />
+        <module name="store-auth-service" />
+        <module name="store-gateway-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="store-auth-service" options="-parameters" />
       <module name="store-common-service" options="-parameters" />
+      <module name="store-gateway-service" options="-parameters" />
       <module name="store-product-service" options="-parameters" />
       <module name="store-user-service" options="-parameters" />
     </option>

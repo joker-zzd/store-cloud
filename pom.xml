@@ -16,7 +16,9 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>store-auth-service</module>
         <module>store-common-service</module>
+        <module>store-gateway-service</module>
         <module>store-product-service</module>
         <module>store-user-service</module>
     </modules>
