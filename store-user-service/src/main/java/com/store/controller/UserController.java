@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user/internal")
+@RequestMapping("/api/user")
 public class UserController {
     private final SysUserService sysUserService;
 

@@ -1,11 +1,11 @@
-package com.store.storegatewayservice.filter;
+package com.store.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.store.common.auth.AuthConstants;
 import com.store.common.auth.JwtTokenUtils;
 import com.store.common.auth.JwtUserClaims;
-import com.store.storegatewayservice.config.GatewayJwtProperties;
+import com.store.config.GatewayJwtProperties;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;

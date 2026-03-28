@@ -1,4 +1,4 @@
-package com.store.storegatewayservice.config;
+package com.store.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
