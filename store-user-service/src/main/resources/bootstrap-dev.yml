@@ -1,16 +1,16 @@
 server:
-  port: 9000
+  port: 8000
   tomcat:
     uri-encoding: UTF-8
 spring:
   application:
-    name: product-service
+    name: user-service
   cloud:
-    nacos:
+    nachos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-adder: 127.0.0.1:8848
       config:
-        server-addr: 127.0.0.1:8848
+        server-adder: 127.0.0.1:8848
         file-extension: yaml
   config:
     import: optional:nacos:${spring.application.name}.yaml
@@ -18,7 +18,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/store?useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: 9527.hxj
+    password: 1234
   mvc:
-    pathmatch:
+    path match:
       matching-strategy: ant_path_matcher
