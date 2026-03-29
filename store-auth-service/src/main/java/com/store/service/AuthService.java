@@ -11,4 +11,6 @@ public interface AuthService {
     AuthTokenResponse refresh(RefreshTokenRequest request);
 
     void logout(LogoutRequest request);
+
+    void invalidateUserSessions(Long userId);
 }

@@ -18,11 +18,13 @@ import com.store.service.PasswordService;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -72,19 +74,39 @@ public class AuthServiceImpl implements AuthService {
 
         UserAuthInfo latestUserInfo = userServiceClient.getAuthInfoByUsername(session.username());
         if (latestUserInfo == null) {
-            stringRedisTemplate.delete(AuthConstants.refreshTokenKey(refreshToken));
+            revokeRefreshToken(refreshToken);
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
         }
         ensureUserEnabled(latestUserInfo);
 
-        stringRedisTemplate.delete(AuthConstants.refreshTokenKey(refreshToken));
+        revokeRefreshToken(refreshToken);
         return issueTokenPair(latestUserInfo);
     }
 
     @Override
     public void logout(LogoutRequest request) {
         String refreshToken = requireText(request == null ? null : request.refreshToken(), "refreshToken");
-        stringRedisTemplate.delete(AuthConstants.refreshTokenKey(refreshToken));
+        revokeRefreshToken(refreshToken);
+    }
+
+    @Override
+    public void invalidateUserSessions(Long userId) {
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "userId must not be null");
+        }
+
+        String userRefreshTokensKey = AuthConstants.userRefreshTokensKey(userId);
+        Set<String> refreshTokens = stringRedisTemplate.opsForSet().members(userRefreshTokensKey);
+        if (!CollectionUtils.isEmpty(refreshTokens)) {
+            List<String> refreshTokenKeys = refreshTokens.stream()
+                    .filter(StringUtils::hasText)
+                    .map(AuthConstants::refreshTokenKey)
+                    .toList();
+            if (!refreshTokenKeys.isEmpty()) {
+                stringRedisTemplate.delete(refreshTokenKeys);
+            }
+        }
+        stringRedisTemplate.delete(userRefreshTokensKey);
     }
 
     private AuthTokenResponse issueTokenPair(UserAuthInfo userAuthInfo) {
@@ -146,6 +168,11 @@ public class AuthServiceImpl implements AuthService {
                     objectMapper.writeValueAsString(session),
                     authJwtProperties.getRefreshTtl()
             );
+            if (session.userId() != null) {
+                String userRefreshTokensKey = AuthConstants.userRefreshTokensKey(session.userId());
+                stringRedisTemplate.opsForSet().add(userRefreshTokensKey, refreshToken);
+                stringRedisTemplate.expire(userRefreshTokensKey, authJwtProperties.getRefreshTtl());
+            }
         } catch (JsonProcessingException exception) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to persist refresh token session", exception);
         }
@@ -161,6 +188,33 @@ public class AuthServiceImpl implements AuthService {
         } catch (JsonProcessingException exception) {
             stringRedisTemplate.delete(AuthConstants.refreshTokenKey(refreshToken));
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to parse refresh token session", exception);
+        }
+    }
+
+    private void revokeRefreshToken(String refreshToken) {
+        RefreshTokenSession session = loadRefreshTokenSessionSafely(refreshToken);
+        stringRedisTemplate.delete(AuthConstants.refreshTokenKey(refreshToken));
+        if (session == null || session.userId() == null) {
+            return;
+        }
+        String userRefreshTokensKey = AuthConstants.userRefreshTokensKey(session.userId());
+        stringRedisTemplate.opsForSet().remove(userRefreshTokensKey, refreshToken);
+        Long remaining = stringRedisTemplate.opsForSet().size(userRefreshTokensKey);
+        if (remaining != null && remaining <= 0) {
+            stringRedisTemplate.delete(userRefreshTokensKey);
+        }
+    }
+
+    private RefreshTokenSession loadRefreshTokenSessionSafely(String refreshToken) {
+        String json = stringRedisTemplate.opsForValue().get(AuthConstants.refreshTokenKey(refreshToken));
+        if (!StringUtils.hasText(json)) {
+            return null;
+        }
+        try {
+            return objectMapper.readValue(json, RefreshTokenSession.class);
+        } catch (JsonProcessingException exception) {
+            stringRedisTemplate.delete(AuthConstants.refreshTokenKey(refreshToken));
+            return null;
         }
     }
 

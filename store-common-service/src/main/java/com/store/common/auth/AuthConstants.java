@@ -24,4 +24,8 @@ public final class AuthConstants {
     public static String refreshTokenKey(String refreshToken) {
         return "auth:refresh:" + refreshToken;
     }
+
+    public static String userRefreshTokensKey(Long userId) {
+        return "auth:user:refresh:" + userId;
+    }
 }

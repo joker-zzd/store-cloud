@@ -11,11 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "Auth", description = "认证相关接口")
+@Tag(name = "认证管理", description = "认证相关接口")
 public class AuthController {
     private final AuthService authService;
 
@@ -24,13 +25,13 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @Operation(summary = "用户登录", description = "使用用户名和密码进行 Authenticate，成功后返回 access token 和 refresh token。")
+    @Operation(summary = "用户登录", description = "使用用户名和密码进行认证，成功后返回 access token 和 refresh token。")
     public AuthTokenResponse login(@RequestBody LoginRequest request) {
         return authService.login(request);
     }
 
     @PostMapping("/refresh")
-    @Operation(summary = "刷新 token", description = "使用 refresh token 轮换并签发新的一组 access token 与 refresh token。")
+    @Operation(summary = "刷新 token", description = "使用 refresh token 换取并签发新的一组 access token 与 refresh token。")
     public AuthTokenResponse refresh(@RequestBody RefreshTokenRequest request) {
         return authService.refresh(request);
     }
@@ -39,6 +40,13 @@ public class AuthController {
     @Operation(summary = "用户退出登录", description = "使当前提交的 refresh token 失效，并结束当前登录会话。")
     public ResponseEntity<Void> logout(@RequestBody LogoutRequest request) {
         authService.logout(request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/internal/sessions/invalidate")
+    @Operation(summary = "失效用户会话", description = "使指定用户的所有 refresh token 会话失效。")
+    public ResponseEntity<Void> invalidateUserSessions(@RequestParam("userId") Long userId) {
+        authService.invalidateUserSessions(userId);
         return ResponseEntity.noContent().build();
     }
 }
