@@ -2,16 +2,21 @@ package com.store.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.store.client.AuthServiceClient;
+import com.store.common.auth.UserContext;
 import com.store.common.auth.dto.UserAuthInfo;
-import com.store.common.exception.BusinessException;
+import com.store.common.resultvo.ResultVO;
+import com.store.config.PasswordEncoderConfig;
 import com.store.domain.SysUser;
 import com.store.domain.dto.UpdatePasswordDTO;
 import com.store.mapper.SysRoleMapper;
 import com.store.mapper.SysUserMapper;
 import com.store.service.SysUserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -24,9 +29,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         implements SysUserService {
 
     private final SysRoleMapper sysRoleMapper;
+    private final UserContext userContext;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthServiceClient authServiceClient;
+    private final PasswordEncoderConfig passwordEncoderConfig;
 
-    public SysUserServiceImpl(SysRoleMapper sysRoleMapper) {
+    public SysUserServiceImpl(SysRoleMapper sysRoleMapper,
+                              UserContext userContext,
+                              PasswordEncoder passwordEncoder,
+                              AuthServiceClient authServiceClient,
+                              PasswordEncoderConfig passwordEncoderConfig) {
         this.sysRoleMapper = sysRoleMapper;
+        this.userContext = userContext;
+        this.passwordEncoder = passwordEncoder;
+        this.authServiceClient = authServiceClient;
+        this.passwordEncoderConfig = passwordEncoderConfig;
     }
 
     @Override
@@ -52,17 +69,49 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     @Transactional(rollbackFor = Exception.class)
     public void updatePassword(UpdatePasswordDTO updatePasswordDTO) {
         if (updatePasswordDTO == null) {
-            throw new BusinessException("请求参数不能为空");
+            ResultVO.fail("请求参数不能为空");
+            return;
         }
         String oldPassword = updatePasswordDTO.getOldPassword();
         String newPassword = updatePasswordDTO.getNewPassword();
         String confirmPassword = updatePasswordDTO.getConfirmPassword();
 
         if (!newPassword.equals(confirmPassword)) {
-            throw new BusinessException("新密码和确认密码不一致");
+            ResultVO.fail("新密码和确认密码不一致");
+            return;
         }
-        //TODO 获取当前用户ID
-//        Long userId = getCurrentUserId();
+        Long userId = userContext.getCurrentUserId();
+        LocalDateTime now = LocalDateTime.now();
+        SysUser user = this.getOne(Wrappers.<SysUser>lambdaQuery()
+                .eq(SysUser::getId, userId)
+                .eq(SysUser::getStatus, 1)
+                .last("limit 1"));
+        if (user == null) {
+            ResultVO.fail("用户不存在");
+            return;
+        }
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            ResultVO.fail("原密码错误");
+            return;
+        }
+        if (passwordEncoder.matches(newPassword, user.getPassword())) {
+            ResultVO.fail("新密码不能与原密码相同");
+            return;
+        }
+        String encodeNewPassword = passwordEncoder.encode(newPassword);
+
+        boolean update = update(Wrappers.<SysUser>lambdaUpdate()
+                .eq(SysUser::getId, userId)
+                .eq(SysUser::getStatus, 1)
+                .set(SysUser::getPassword, encodeNewPassword)
+                .set(SysUser::getUpdateTime, now));
+        if (!update) {
+            ResultVO.fail("更新密码失败");
+            return;
+        }
+        // 修改密码后，失效该用户全部 refresh token，会话强制下线
+        authServiceClient.invalidateUserSessions(userId);
+        ResultVO.success();
     }
 
 }

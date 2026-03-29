@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @SecurityScheme(
-        name = "BearerAuth",
+        name = "Authorization",
         type = SecuritySchemeType.HTTP,
         scheme = "bearer",
         bearerFormat = "JWT",
@@ -25,6 +25,6 @@ public class OpenApiConfig {
                         .title("Store 用户服务 API")
                         .description("用户领域相关接口。")
                         .version("v1"))
-                .addSecurityItem(new SecurityRequirement().addList("BearerAuth"));
+                .addSecurityItem(new SecurityRequirement().addList("Authorization"));
     }
 }

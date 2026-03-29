@@ -1,6 +1,7 @@
 package com.store.controller;
 
 import com.store.common.auth.dto.UserAuthInfo;
+import com.store.common.resultvo.ResultVO;
 import com.store.domain.dto.UpdatePasswordDTO;
 import com.store.service.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +32,8 @@ public class UserController {
 
     @PostMapping("/update/password")
     @Operation(summary = "修改密码")
-    public void updatePassword(@Valid @RequestBody UpdatePasswordDTO updatePasswordDTO) {
+    public ResultVO<Void> updatePassword(@Valid @RequestBody UpdatePasswordDTO updatePasswordDTO) {
         sysUserService.updatePassword(updatePasswordDTO);
+        return ResultVO.success();
     }
 }
