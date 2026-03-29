@@ -58,8 +58,9 @@ public class AccessTokenFilter implements GlobalFilter, Ordered {
         }
 
         ServerHttpRequest request = exchange.getRequest().mutate()
-                .header(AuthConstants.HEADER_USER_ID, String.valueOf(claims.userId()))
+                .header(AuthConstants.HEADER_USER_ID, claims.userId() == null ? "" : String.valueOf(claims.userId()))
                 .header(AuthConstants.HEADER_USERNAME, claims.username() == null ? "" : claims.username())
+                .header(AuthConstants.HEADER_NICKNAME, claims.nickname() == null ? "" : claims.nickname())
                 .header(AuthConstants.HEADER_USER_ROLES, String.join(",", claims.roles() == null ? List.of() : claims.roles()))
                 .build();
         return chain.filter(exchange.mutate().request(request).build());

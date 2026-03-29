@@ -3,22 +3,25 @@ package com.store.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.store.common.auth.dto.UserAuthInfo;
+import com.store.common.exception.BusinessException;
 import com.store.domain.SysUser;
+import com.store.domain.dto.UpdatePasswordDTO;
 import com.store.mapper.SysRoleMapper;
 import com.store.mapper.SysUserMapper;
 import com.store.service.SysUserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
-* @author 19256
-* @description 针对表【sys_user(后台用户信息表)】的数据库操作Service实现
-* @createDate 2026-03-28 14:52:47
-*/
+ * @author 19256
+ * @description 针对表【sys_user(后台用户信息表)】的数据库操作Service实现
+ * @createDate 2026-03-28 14:52:47
+ */
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
-    implements SysUserService{
+        implements SysUserService {
 
     private final SysRoleMapper sysRoleMapper;
 
@@ -43,6 +46,23 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
                 user.getStatus(),
                 roles == null ? List.of() : roles
         );
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updatePassword(UpdatePasswordDTO updatePasswordDTO) {
+        if (updatePasswordDTO == null) {
+            throw new BusinessException("请求参数不能为空");
+        }
+        String oldPassword = updatePasswordDTO.getOldPassword();
+        String newPassword = updatePasswordDTO.getNewPassword();
+        String confirmPassword = updatePasswordDTO.getConfirmPassword();
+
+        if (!newPassword.equals(confirmPassword)) {
+            throw new BusinessException("新密码和确认密码不一致");
+        }
+        //TODO 获取当前用户ID
+//        Long userId = getCurrentUserId();
     }
 
 }

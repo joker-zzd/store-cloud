@@ -1,13 +1,11 @@
 package com.store.controller;
 
 import com.store.common.auth.dto.UserAuthInfo;
+import com.store.domain.dto.UpdatePasswordDTO;
 import com.store.service.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user/internal")
@@ -23,5 +21,11 @@ public class UserController {
     @Operation(summary = "根据用户名查询用户信息")
     public UserAuthInfo getAuthInfoByUsername(@RequestParam("username") String username) {
         return sysUserService.getAuthInfoByUsername(username);
+    }
+
+    @PostMapping("/update/password")
+    @Operation(summary = "修改密码")
+    public void updatePassword(@RequestBody UpdatePasswordDTO updatePasswordDTO) {
+        sysUserService.updatePassword(updatePasswordDTO);
     }
 }
