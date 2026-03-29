@@ -1,6 +1,6 @@
 package com.store.mapper;
 
-import com.store.domain.SysRole;
+import com.store.domain.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +14,7 @@ import java.util.List;
  * @Entity com.store.domain.SysRole
  */
 @Mapper
-public interface SysRoleMapper extends BaseMapper<SysRole> {
+public interface SysRoleMapper extends BaseMapper<Role> {
     List<String> selectRoleKeysByUserId(@Param("userId") Long userId);
 }
 

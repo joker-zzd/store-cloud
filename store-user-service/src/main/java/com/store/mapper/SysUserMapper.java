@@ -1,6 +1,6 @@
 package com.store.mapper;
 
-import com.store.domain.SysUser;
+import com.store.domain.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @Entity com.store.domain.SysUser
  */
 @Mapper
-public interface SysUserMapper extends BaseMapper<SysUser> {
+public interface SysUserMapper extends BaseMapper<User> {
 
 }
 

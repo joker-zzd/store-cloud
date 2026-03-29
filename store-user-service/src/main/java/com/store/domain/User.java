@@ -10,36 +10,60 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 角色信息表
+ * 后台用户信息表
  *
- * @TableName sys_role
+ * @TableName sys_user
  */
-@TableName(value = "sys_role")
+@TableName(value = "sys_user")
 @Data
-public class SysRole {
+public class User {
     /**
-     * 角色ID
+     * 用户ID
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 角色名称
+     * 部门ID
      */
-    @TableField(value = "name")
-    private String name;
+    @TableField(value = "dept_id")
+    private Long deptId;
 
     /**
-     * 角色权限字符串
+     * 用户名
      */
-    @TableField(value = "role_key")
-    private String roleKey;
+    @TableField(value = "username")
+    private String username;
 
     /**
-     * 排序字段
+     * 昵称
      */
-    @TableField(value = "sort")
-    private Integer sort;
+    @TableField(value = "nickname")
+    private String nickname;
+
+    /**
+     * 密码
+     */
+    @TableField(value = "password")
+    private String password;
+
+    /**
+     * 头像地址
+     */
+    @TableField(value = "avatar")
+    private String avatar;
+
+    /**
+     * 邮箱
+     */
+    @TableField(value = "email")
+    private String email;
+
+    /**
+     * 手机号
+     */
+    @TableField(value = "phone")
+    private String phone;
 
     /**
      * 状态: 1=正常,0=停用

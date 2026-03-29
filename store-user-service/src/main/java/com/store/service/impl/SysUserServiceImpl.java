@@ -6,7 +6,7 @@ import com.store.client.AuthServiceClient;
 import com.store.common.auth.UserContext;
 import com.store.common.auth.dto.UserAuthInfo;
 import com.store.common.resultvo.ResultVO;
-import com.store.domain.SysUser;
+import com.store.domain.User;
 import com.store.domain.dto.UpdatePasswordDTO;
 import com.store.mapper.SysRoleMapper;
 import com.store.mapper.SysUserMapper;
@@ -14,13 +14,12 @@ import com.store.service.SysUserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
 
 @Service
-public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, User>
         implements SysUserService {
 
     private final SysRoleMapper sysRoleMapper;
@@ -40,8 +39,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     @Override
     public UserAuthInfo getAuthInfoByUsername(String username) {
-        SysUser user = getOne(Wrappers.<SysUser>lambdaQuery()
-                .eq(SysUser::getUsername, username)
+        User user = getOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getUsername, username)
                 .last("limit 1"));
         if (user == null) {
             return null;
@@ -73,9 +72,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
         Long userId = userContext.getCurrentUserId();
         Date now = new Date();
-        SysUser user = this.getOne(Wrappers.<SysUser>lambdaQuery()
-                .eq(SysUser::getId, userId)
-                .eq(SysUser::getStatus, 1)
+        User user = this.getOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getId, userId)
+                .eq(User::getStatus, 1)
                 .last("limit 1"));
         if (user == null) {
             return ResultVO.fail("用户不存在");
@@ -89,12 +88,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         }
 
         String encodeNewPassword = passwordEncoder.encode(newPassword);
-        boolean update = this.update(Wrappers.<SysUser>lambdaUpdate()
-                .eq(SysUser::getId, userId)
-                .eq(SysUser::getStatus, 1)
-                .eq(SysUser::getPassword, user.getPassword())
-                .set(SysUser::getPassword, encodeNewPassword)
-                .set(SysUser::getUpdateTime, now));
+        boolean update = this.update(Wrappers.<User>lambdaUpdate()
+                .eq(User::getId, userId)
+                .eq(User::getStatus, 1)
+                .eq(User::getPassword, user.getPassword())
+                .set(User::getPassword, encodeNewPassword)
+                .set(User::getUpdateTime, now));
         if (!update) {
             return ResultVO.fail("更新密码失败");
         }

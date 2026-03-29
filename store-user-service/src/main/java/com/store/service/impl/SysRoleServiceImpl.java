@@ -1,7 +1,7 @@
 package com.store.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.store.domain.SysRole;
+import com.store.domain.Role;
 import com.store.service.SysRoleService;
 import com.store.mapper.SysRoleMapper;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @createDate 2026-03-28 14:59:37
  */
 @Service
-public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole>
+public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, Role>
         implements SysRoleService {
 
 }

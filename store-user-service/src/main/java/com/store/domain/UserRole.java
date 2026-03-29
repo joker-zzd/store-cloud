@@ -1,7 +1,6 @@
 package com.store.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -12,7 +11,7 @@ import lombok.Data;
  */
 @TableName(value = "sys_user_role")
 @Data
-public class SysUserRole {
+public class UserRole {
     /**
      * 用户ID
      */
