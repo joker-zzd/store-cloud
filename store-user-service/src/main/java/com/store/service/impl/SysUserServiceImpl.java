@@ -6,7 +6,6 @@ import com.store.client.AuthServiceClient;
 import com.store.common.auth.UserContext;
 import com.store.common.auth.dto.UserAuthInfo;
 import com.store.common.resultvo.ResultVO;
-import com.store.config.PasswordEncoderConfig;
 import com.store.domain.SysUser;
 import com.store.domain.dto.UpdatePasswordDTO;
 import com.store.mapper.SysRoleMapper;
@@ -15,15 +14,11 @@ import com.store.service.SysUserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
-/**
- * @author 19256
- * @description 针对表【sys_user(后台用户信息表)】的数据库操作Service实现
- * @createDate 2026-03-28 14:52:47
- */
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         implements SysUserService {
@@ -32,18 +27,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     private final UserContext userContext;
     private final PasswordEncoder passwordEncoder;
     private final AuthServiceClient authServiceClient;
-    private final PasswordEncoderConfig passwordEncoderConfig;
 
     public SysUserServiceImpl(SysRoleMapper sysRoleMapper,
                               UserContext userContext,
                               PasswordEncoder passwordEncoder,
-                              AuthServiceClient authServiceClient,
-                              PasswordEncoderConfig passwordEncoderConfig) {
+                              AuthServiceClient authServiceClient) {
         this.sysRoleMapper = sysRoleMapper;
         this.userContext = userContext;
         this.passwordEncoder = passwordEncoder;
         this.authServiceClient = authServiceClient;
-        this.passwordEncoderConfig = passwordEncoderConfig;
     }
 
     @Override
@@ -67,55 +59,51 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updatePassword(UpdatePasswordDTO updatePasswordDTO) {
+    public ResultVO<Void> updatePassword(UpdatePasswordDTO updatePasswordDTO) {
         if (updatePasswordDTO == null) {
-            ResultVO.fail("请求参数不能为空");
-            return;
+            return ResultVO.fail("请求参数不能为空");
         }
-        String oldPassword = updatePasswordDTO.getOldPassword();
-        String newPassword = updatePasswordDTO.getNewPassword();
-        String confirmPassword = updatePasswordDTO.getConfirmPassword();
 
+        String oldPassword = trim(updatePasswordDTO.getOldPassword());
+        String newPassword = trim(updatePasswordDTO.getNewPassword());
+        String confirmPassword = trim(updatePasswordDTO.getConfirmPassword());
         if (!newPassword.equals(confirmPassword)) {
-            ResultVO.fail("新密码和确认密码不一致");
-            return;
+            return ResultVO.fail("新密码和确认密码不一致");
         }
+
         Long userId = userContext.getCurrentUserId();
-        LocalDateTime now = LocalDateTime.now();
+        Date now = new Date();
         SysUser user = this.getOne(Wrappers.<SysUser>lambdaQuery()
                 .eq(SysUser::getId, userId)
                 .eq(SysUser::getStatus, 1)
                 .last("limit 1"));
         if (user == null) {
-            ResultVO.fail("用户不存在");
-            return;
+            return ResultVO.fail("用户不存在");
         }
+
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            ResultVO.fail("原密码错误");
-            return;
+            return ResultVO.fail("原密码错误");
         }
         if (passwordEncoder.matches(newPassword, user.getPassword())) {
-            ResultVO.fail("新密码不能与原密码相同");
-            return;
+            return ResultVO.fail("新密码不能与原密码相同");
         }
-        String encodeNewPassword = passwordEncoder.encode(newPassword);
 
-        boolean update = update(Wrappers.<SysUser>lambdaUpdate()
+        String encodeNewPassword = passwordEncoder.encode(newPassword);
+        boolean update = this.update(Wrappers.<SysUser>lambdaUpdate()
                 .eq(SysUser::getId, userId)
                 .eq(SysUser::getStatus, 1)
+                .eq(SysUser::getPassword, user.getPassword())
                 .set(SysUser::getPassword, encodeNewPassword)
                 .set(SysUser::getUpdateTime, now));
         if (!update) {
-            ResultVO.fail("更新密码失败");
-            return;
+            return ResultVO.fail("更新密码失败");
         }
-        // 修改密码后，失效该用户全部 refresh token，会话强制下线
+
         authServiceClient.invalidateUserSessions(userId);
-        ResultVO.success();
+        return ResultVO.success();
     }
 
+    private String trim(String value) {
+        return value == null ? null : value.trim();
+    }
 }
-
-
-
-

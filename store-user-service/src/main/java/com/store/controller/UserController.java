@@ -33,7 +33,6 @@ public class UserController {
     @PostMapping("/update/password")
     @Operation(summary = "修改密码")
     public ResultVO<Void> updatePassword(@Valid @RequestBody UpdatePasswordDTO updatePasswordDTO) {
-        sysUserService.updatePassword(updatePasswordDTO);
-        return ResultVO.success();
+        return sysUserService.updatePassword(updatePasswordDTO);
     }
 }
