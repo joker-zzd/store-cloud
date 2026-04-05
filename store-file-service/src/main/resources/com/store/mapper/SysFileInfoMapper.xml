@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.mapper.SysFileInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.store.domain.SysFileInfo">
+            <id property="id" column="id" />
+            <result property="businessType" column="business_type" />
+            <result property="originalName" column="original_name" />
+            <result property="storageName" column="storage_name" />
+            <result property="relativePath" column="relative_path" />
+            <result property="accessUrl" column="access_url" />
+            <result property="fileExt" column="file_ext" />
+            <result property="contentType" column="content_type" />
+            <result property="fileSize" column="file_size" />
+            <result property="fileHash" column="file_hash" />
+            <result property="storageType" column="storage_type" />
+            <result property="uploaderId" column="uploader_id" />
+            <result property="uploaderName" column="uploader_name" />
+            <result property="publicFlag" column="public_flag" />
+            <result property="deleted" column="deleted" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,business_type,original_name,storage_name,relative_path,access_url,
+        file_ext,content_type,file_size,file_hash,storage_type,
+        uploader_id,uploader_name,public_flag,deleted,create_time,
+        update_time
+    </sql>
+</mapper>
