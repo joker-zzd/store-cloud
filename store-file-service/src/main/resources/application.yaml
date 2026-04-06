@@ -1,3 +1,7 @@
 spring:
-  application:
-    name: store-file-service
+  profiles:
+    active: dev
+
+logging:
+  level:
+    com.store: debug

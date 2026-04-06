@@ -22,6 +22,7 @@
         <module>store-gateway-service</module>
         <module>store-product-service</module>
         <module>store-user-service</module>
+        <module>store-file-service</module>
     </modules>
 
     <properties>

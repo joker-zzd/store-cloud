@@ -21,7 +21,7 @@ public final class SecurityUtils {
         try {
             return Long.valueOf(userId);
         } catch (NumberFormatException exception) {
-            throw new BusinessException("当前用户ID格式错误");
+            throw new BusinessException("当前用户ID格式错误", exception);
         }
     }
 

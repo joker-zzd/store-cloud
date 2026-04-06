@@ -1,4 +1,4 @@
-server:
+﻿server:
   port: 8080
 
 spring:
@@ -39,7 +39,14 @@ spring:
         - id: common-service
           uri: lb://common-service
           predicates:
-              - Path=/api/common/**
+            - Path=/api/common/**
+          filters:
+            - StripPrefix=1
+
+        - id: file-service
+          uri: lb://file-service
+          predicates:
+            - Path=/api/file/**
           filters:
             - StripPrefix=1
 
@@ -78,6 +85,11 @@ knife4j:
         url: /api/product/v3/api-docs
         context-path: /api
         order: 3
+      - name: File Service
+        service-name: file-service
+        url: /api/file/v3/api-docs
+        context-path: /api
+        order: 4
 
 management:
   endpoints:
