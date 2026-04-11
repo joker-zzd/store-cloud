@@ -29,20 +29,20 @@ public class FileController {
     }
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @Operation(summary = "Upload file to Aliyun OSS")
+    @Operation(summary = "文件上传OSS")
     public ResultVO<FileUploadVO> upload(@RequestPart("file") MultipartFile file,
                                          @RequestParam(value = "businessType", defaultValue = "common") String businessType) {
         return fileService.upload(file, businessType);
     }
 
     @GetMapping("/{fileId}")
-    @Operation(summary = "Get file metadata")
+    @Operation(summary = "获取文件元数据")
     public ResultVO<FileInfoVO> getFileInfo(@PathVariable("fileId") Long fileId) {
         return fileService.getFileInfo(fileId);
     }
 
     @GetMapping("/{fileId}/signed-url")
-    @Operation(summary = "Generate signed OSS URL")
+    @Operation(summary = "生成带签名的 OSS URL")
     public ResultVO<FileSignedUrlVO> getSignedUrl(@PathVariable("fileId") Long fileId,
                                                   @RequestParam(value = "expireSeconds", required = false) Long expireSeconds) {
         return fileService.getSignedUrl(fileId, expireSeconds);
