@@ -1,6 +1,8 @@
 package com.store.service.impl;
 
+import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
@@ -61,6 +63,11 @@ public class AliyunOssStorageService implements FileStorageService {
                     "ALIYUN_OSS",
                     ossProperties.getBucketName()
             );
+        } catch (OSSException exception) {
+            throw new BusinessException("Failed to upload file to OSS: "
+                    + exception.getErrorCode() + " - " + exception.getErrorMessage(), exception);
+        } catch (ClientException exception) {
+            throw new BusinessException("Failed to upload file to OSS: " + exception.getMessage(), exception);
         } catch (Exception exception) {
             throw new BusinessException("Failed to upload file to OSS", exception);
         }
@@ -73,6 +80,11 @@ public class AliyunOssStorageService implements FileStorageService {
             Date expiration = new Date(System.currentTimeMillis() + safeExpireSeconds * 1000L);
             URL url = ossClient.generatePresignedUrl(ossProperties.getBucketName(), objectKey, expiration);
             return url.toString();
+        } catch (OSSException exception) {
+            throw new BusinessException("Failed to generate signed OSS URL: "
+                    + exception.getErrorCode() + " - " + exception.getErrorMessage(), exception);
+        } catch (ClientException exception) {
+            throw new BusinessException("Failed to generate signed OSS URL: " + exception.getMessage(), exception);
         } catch (Exception exception) {
             throw new BusinessException("Failed to generate signed OSS URL", exception);
         }

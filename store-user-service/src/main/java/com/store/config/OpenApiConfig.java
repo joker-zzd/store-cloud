@@ -12,9 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @SecurityScheme(
         name = "Authorization",
-        type = SecuritySchemeType.HTTP,
-        scheme = "bearer",
-        bearerFormat = "JWT",
+        type = SecuritySchemeType.APIKEY,
         in = SecuritySchemeIn.HEADER
 )
 public class OpenApiConfig {

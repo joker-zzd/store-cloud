@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.mapper.PayNotificationCallbackMapper">
+
+    <resultMap id="BaseResultMap" type="com.store.domain.PayNotificationCallback">
+            <id property="id" column="id" />
+            <result property="callbackNo" column="callback_no" />
+            <result property="thirdCallbackNo" column="third_callback_no" />
+            <result property="payChannel" column="pay_channel" />
+            <result property="eventType" column="event_type" />
+            <result property="userId" column="user_id" />
+            <result property="memberInfoId" column="member_info_id" />
+            <result property="levelId" column="level_id" />
+            <result property="signContractId" column="sign_contract_id" />
+            <result property="deductOrderId" column="deduct_order_id" />
+            <result property="outTradeNo" column="out_trade_no" />
+            <result property="notifyTime" column="notify_time" />
+            <result property="processStatus" column="process_status" />
+            <result property="processTimes" column="process_times" />
+            <result property="processTime" column="process_time" />
+            <result property="failReason" column="fail_reason" />
+            <result property="rawBody" column="raw_body" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,callback_no,third_callback_no,pay_channel,event_type,user_id,
+        member_info_id,level_id,sign_contract_id,deduct_order_id,out_trade_no,
+        notify_time,process_status,process_times,process_time,fail_reason,
+        raw_body,create_time,update_time
+    </sql>
+</mapper>

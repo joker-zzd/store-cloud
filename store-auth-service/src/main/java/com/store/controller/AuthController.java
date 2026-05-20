@@ -4,6 +4,7 @@ import com.store.common.auth.dto.AuthTokenResponse;
 import com.store.common.auth.dto.LoginRequest;
 import com.store.common.auth.dto.LogoutRequest;
 import com.store.common.auth.dto.RefreshTokenRequest;
+import com.store.common.resultvo.ResultVO;
 import com.store.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,8 +27,8 @@ public class AuthController {
 
     @PostMapping("/login")
     @Operation(summary = "用户登录", description = "使用用户名和密码进行认证，成功后返回 access token 和 refresh token。")
-    public AuthTokenResponse login(@RequestBody LoginRequest request) {
-        return authService.login(request);
+    public ResultVO<AuthTokenResponse> login(@RequestBody LoginRequest request) {
+        return ResultVO.success(authService.login(request));
     }
 
     @PostMapping("/refresh")

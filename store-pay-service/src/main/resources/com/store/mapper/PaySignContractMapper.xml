@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.mapper.PaySignContractMapper">
+
+    <resultMap id="BaseResultMap" type="com.store.domain.PaySignContract">
+            <id property="id" column="id" />
+            <result property="userId" column="user_id" />
+            <result property="memberInfoId" column="member_info_id" />
+            <result property="levelId" column="level_id" />
+            <result property="payChannel" column="pay_channel" />
+            <result property="contractNo" column="contract_no" />
+            <result property="thirdPartyContractNo" column="third_party_contract_no" />
+            <result property="externalUserId" column="external_user_id" />
+            <result property="contractStatus" column="contract_status" />
+            <result property="autoRenewStatus" column="auto_renew_status" />
+            <result property="periodType" column="period_type" />
+            <result property="periodValue" column="period_value" />
+            <result property="clientPlatform" column="client_platform" />
+            <result property="firstDeductTime" column="first_deduct_time" />
+            <result property="nextDeductTime" column="next_deduct_time" />
+            <result property="lastDeductTime" column="last_deduct_time" />
+            <result property="amount" column="amount" />
+            <result property="signTime" column="sign_time" />
+            <result property="unsignTime" column="unsign_time" />
+            <result property="unsignReason" column="unsign_reason" />
+            <result property="channelResponseSnapshot" column="channel_response_snapshot" />
+            <result property="remark" column="remark" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+            <result property="wechatPlanId" column="wechat_plan_id" />
+            <result property="preEntrustwebId" column="pre_entrustweb_id" />
+            <result property="preEntrustExpireTime" column="pre_entrust_expire_time" />
+            <result property="requestSerial" column="request_serial" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,member_info_id,level_id,pay_channel,contract_no,
+        third_party_contract_no,external_user_id,contract_status,auto_renew_status,period_type,
+        period_value,client_platform,first_deduct_time,next_deduct_time,last_deduct_time,
+        amount,sign_time,unsign_time,unsign_reason,channel_response_snapshot,
+        remark,create_time,update_time,wechat_plan_id,pre_entrustweb_id,
+        pre_entrust_expire_time,request_serial
+    </sql>
+</mapper>

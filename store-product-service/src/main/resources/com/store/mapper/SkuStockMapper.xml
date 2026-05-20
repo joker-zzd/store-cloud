@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.mapper.SkuStockMapper">
+
+    <resultMap id="BaseResultMap" type="com.store.domain.SkuStock">
+            <id property="id" column="id" />
+            <result property="productId" column="product_id" />
+            <result property="skuCode" column="sku_code" />
+            <result property="price" column="price" />
+            <result property="stock" column="stock" />
+            <result property="lowStock" column="low_stock" />
+            <result property="spData" column="sp_data" />
+            <result property="pic" column="pic" />
+            <result property="sale" column="sale" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,product_id,sku_code,price,stock,low_stock,
+        sp_data,pic,sale,create_time,update_time
+    </sql>
+</mapper>

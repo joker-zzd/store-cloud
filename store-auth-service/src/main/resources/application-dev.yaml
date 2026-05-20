@@ -6,6 +6,11 @@ spring:
     name: auth-service
   config:
     import: optional:nacos:${spring.application.name}.yaml
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/store?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1234
   data:
     redis:
       host: 127.0.0.1
@@ -25,12 +30,16 @@ spring:
           default:
             connect-timeout: 3000
             read-timeout: 5000
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema-auth.sql
 
 store:
   security:
     jwt:
       secret: store-cloud-auth-refresh-secret-key-2026-demo
-      access-ttl: 30m
+      access-ttl: 7d
       refresh-ttl: 7d
 
 springdoc:
@@ -38,3 +47,7 @@ springdoc:
     path: /auth/v3/api-docs
   swagger-ui:
     enabled: false
+
+mybatis-plus:
+  mapper-locations: classpath*:com/store/mapper/*.xml
+  type-aliases-package: com.store.domain

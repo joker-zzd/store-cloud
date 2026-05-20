@@ -7,12 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="store-user-service" />
         <module name="store-product-service" />
         <module name="store-common-service" />
-        <module name="store-auth-service" />
         <module name="store-gateway-service" />
         <module name="store-file-service" />
+        <module name="store-pay-service" />
+        <module name="store-user-service" />
+        <module name="store-auth-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -22,6 +23,7 @@
       <module name="store-common-service" options="-parameters" />
       <module name="store-file-service" options="-parameters" />
       <module name="store-gateway-service" options="-parameters" />
+      <module name="store-pay-service" options="-parameters" />
       <module name="store-product-service" options="-parameters" />
       <module name="store-user-service" options="-parameters" />
     </option>

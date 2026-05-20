@@ -28,6 +28,7 @@ public final class JwtTokenUtils {
                 .claim(AuthConstants.CLAIM_USERNAME, claims.username())
                 .claim(AuthConstants.CLAIM_NICKNAME, claims.nickname())
                 .claim(AuthConstants.CLAIM_ROLES, claims.roles())
+                .claim(AuthConstants.CLAIM_USER_TYPE, claims.userType())
                 .claim(AuthConstants.CLAIM_TOKEN_ID, claims.tokenId())
                 .claim(AuthConstants.CLAIM_TOKEN_TYPE, claims.tokenType())
                 .signWith(signingKey(secret))
@@ -47,28 +48,36 @@ public final class JwtTokenUtils {
         }
 
         return new JwtUserClaims(
-                getLongClaim(claims, AuthConstants.CLAIM_USER_ID),
+                getLongClaim(claims),
                 claims.get(AuthConstants.CLAIM_USERNAME, String.class),
                 claims.get(AuthConstants.CLAIM_NICKNAME, String.class),
                 getRoles(claims),
+                claims.get(AuthConstants.CLAIM_USER_TYPE, String.class),
                 claims.get(AuthConstants.CLAIM_TOKEN_ID, String.class),
                 tokenType
         );
     }
 
     public static String resolveBearerToken(String authorizationHeader) {
-        if (authorizationHeader == null || !authorizationHeader.startsWith(AuthConstants.BEARER_PREFIX)) {
+        if (authorizationHeader == null) {
             return null;
         }
-        return authorizationHeader.substring(AuthConstants.BEARER_PREFIX.length()).trim();
+        String token = authorizationHeader.trim();
+        if (token.isEmpty()) {
+            return null;
+        }
+        if (token.regionMatches(true, 0, AuthConstants.BEARER_PREFIX, 0, AuthConstants.BEARER_PREFIX.length())) {
+            token = token.substring(AuthConstants.BEARER_PREFIX.length()).trim();
+        }
+        return token.isEmpty() ? null : token;
     }
 
     private static SecretKey signingKey(String secret) {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    private static Long getLongClaim(Claims claims, String claimName) {
-        Number number = claims.get(claimName, Number.class);
+    private static Long getLongClaim(Claims claims) {
+        Number number = claims.get(AuthConstants.CLAIM_USER_ID, Number.class);
         return number == null ? null : number.longValue();
     }
 
@@ -80,3 +89,5 @@ public final class JwtTokenUtils {
         return roleList.stream().map(String::valueOf).toList();
     }
 }
+
+

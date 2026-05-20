@@ -1,5 +1,5 @@
 ﻿server:
-  port: 8080
+port: 8080
 
 spring:
   application:
@@ -19,6 +19,13 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/api/auth/**
+          filters:
+            - StripPrefix=1
+
+        - id: auth-service-menus
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/menus/**
           filters:
             - StripPrefix=1
 
@@ -47,6 +54,13 @@ spring:
           uri: lb://file-service
           predicates:
             - Path=/api/file/**
+          filters:
+            - StripPrefix=1
+
+        - id: pay-service
+          uri: lb://pay-service
+          predicates:
+            - Path=/api/pay/**
           filters:
             - StripPrefix=1
 

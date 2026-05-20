@@ -8,6 +8,7 @@ public record UserAuthInfo(
         String nickname,
         String password,
         Integer status,
-        List<String> roles
+        List<String> roles,
+        String userType
 ) {
 }

@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS `sys_file_info` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `business_type` varchar(64) NOT NULL COMMENT '业务类型',
+  `original_name` varchar(255) NOT NULL COMMENT '原始文件名',
+  `object_key` varchar(512) NOT NULL COMMENT 'OSS对象Key',
+  `bucket_name` varchar(128) NOT NULL COMMENT 'Bucket名称',
+  `file_ext` varchar(32) DEFAULT NULL COMMENT '文件扩展名',
+  `content_type` varchar(128) DEFAULT NULL COMMENT '文件MIME类型',
+  `file_size` bigint NOT NULL COMMENT '文件大小(字节)',
+  `file_hash` varchar(128) DEFAULT NULL COMMENT '文件哈希',
+  `etag` varchar(128) DEFAULT NULL COMMENT 'OSS返回的ETag',
+  `storage_type` varchar(64) NOT NULL COMMENT '存储类型',
+  `uploader_id` bigint DEFAULT NULL COMMENT '上传人ID',
+  `uploader_name` varchar(64) DEFAULT NULL COMMENT '上传人用户名',
+  `deleted` tinyint NOT NULL DEFAULT 0 COMMENT '逻辑删除',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_sys_file_info_business_type` (`business_type`),
+  KEY `idx_sys_file_info_uploader_id` (`uploader_id`),
+  KEY `idx_sys_file_info_deleted` (`deleted`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='文件元数据表';

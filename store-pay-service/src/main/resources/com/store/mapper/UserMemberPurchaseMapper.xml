@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.mapper.UserMemberPurchaseMapper">
+
+    <resultMap id="BaseResultMap" type="com.store.domain.UserMemberPurchase">
+            <id property="id" column="id" />
+            <result property="userId" column="user_id" />
+            <result property="purchaseNo" column="purchase_no" />
+            <result property="levelId" column="level_id" />
+            <result property="rechargeMonths" column="recharge_months" />
+            <result property="originalPrice" column="original_price" />
+            <result property="actualPayAmount" column="actual_pay_amount" />
+            <result property="giveIntegral" column="give_integral" />
+            <result property="integralValidityDays" column="integral_validity_days" />
+            <result property="payChannel" column="pay_channel" />
+            <result property="payType" column="pay_type" />
+            <result property="payStatus" column="pay_status" />
+            <result property="payTime" column="pay_time" />
+            <result property="outTradeNo" column="out_trade_no" />
+            <result property="memberEffectiveTime" column="member_effective_time" />
+            <result property="memberExpireTime" column="member_expire_time" />
+            <result property="memberStatus" column="member_status" />
+            <result property="discountAmount" column="discount_amount" />
+            <result property="discountAmountDesc" column="discount_amount_desc" />
+            <result property="invoiceStatus" column="invoice_status" />
+            <result property="remark" column="remark" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,purchase_no,level_id,recharge_months,original_price,
+        actual_pay_amount,give_integral,integral_validity_days,pay_channel,pay_type,
+        pay_status,pay_time,out_trade_no,member_effective_time,member_expire_time,
+        member_status,discount_amount,discount_amount_desc,invoice_status,remark,
+        create_time,update_time
+    </sql>
+</mapper>

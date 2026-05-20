@@ -10,6 +10,7 @@ public final class AuthConstants {
     public static final String CLAIM_USERNAME = "username";
     public static final String CLAIM_NICKNAME = "nickname";
     public static final String CLAIM_ROLES = "roles";
+    public static final String CLAIM_USER_TYPE = "userType";
     public static final String CLAIM_TOKEN_TYPE = "tokenType";
     public static final String CLAIM_TOKEN_ID = "tokenId";
 
@@ -17,6 +18,10 @@ public final class AuthConstants {
     public static final String HEADER_USERNAME = "X-Username";
     public static final String HEADER_NICKNAME = "X-Nickname";
     public static final String HEADER_USER_ROLES = "X-User-Roles";
+    public static final String HEADER_USER_TYPE = "X-User-Type";
+
+    public static final String USER_TYPE_ADMIN = "ADMIN";
+    public static final String USER_TYPE_MEMBER = "MEMBER";
 
     private AuthConstants() {
     }

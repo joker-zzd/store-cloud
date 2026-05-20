@@ -40,9 +40,11 @@ springdoc:
 
 store:
   oss:
-    endpoint: https://oss-cn-hangzhou.aliyuncs.com
-    region: cn-hangzhou
-    bucket-name: your-bucket-name
+    endpoint: https://oss-cn-shenzhen.aliyuncs.com
+    region: cn-shenzhen
+    bucket-name: zb-store-image
+    accessKeyId: ${ALIYUN_ACCESS_KEY_ID}
+    accessKeySecret: ${ALIYUN_ACCESS_KEY_SECRET}
     key-prefix: store-cloud
     signed-url-expire-seconds: 600
     max-size: 10485760
@@ -67,4 +69,3 @@ store:
       - application/vnd.openxmlformats-officedocument.wordprocessingml.document
       - application/vnd.ms-excel
       - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-

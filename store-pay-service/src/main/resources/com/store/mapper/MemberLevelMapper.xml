@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.mapper.MemberLevelMapper">
+
+    <resultMap id="BaseResultMap" type="com.store.domain.MemberLevel">
+            <id property="id" column="id" />
+            <result property="appleProductId" column="apple_product_id" />
+            <result property="levelName" column="level_name" />
+            <result property="levelNameEn" column="level_name_en" />
+            <result property="levelType" column="level_type" />
+            <result property="rechargeMonths" column="recharge_months" />
+            <result property="originalPrice" column="original_price" />
+            <result property="currentPrice" column="current_price" />
+            <result property="giveIntegral" column="give_integral" />
+            <result property="inviteGiveIntegral" column="invite_give_integral" />
+            <result property="integralValidityDays" column="integral_validity_days" />
+            <result property="status" column="status" />
+            <result property="iconUrl" column="icon_url" />
+            <result property="sort" column="sort" />
+            <result property="levelDesc" column="level_desc" />
+            <result property="remark" column="remark" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+            <result property="maxSubAccounts" column="max_sub_accounts" />
+            <result property="commissionRate" column="commission_rate" />
+            <result property="renewCommissionRate" column="renew_commission_rate" />
+            <result property="appleCommissionRate" column="apple_commission_rate" />
+            <result property="appleRenewCommissionRate" column="apple_renew_commission_rate" />
+        <result property="wechatPlanId" column="wechat_plan_id" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,apple_product_id,level_name,level_name_en,level_type,recharge_months,
+        original_price,current_price,give_integral,invite_give_integral,integral_validity_days,
+        status,icon_url,sort,level_desc,remark,
+        create_time,update_time,max_sub_accounts,commission_rate,renew_commission_rate,
+        apple_commission_rate,apple_renew_commission_rate,wechat_plan_id
+    </sql>
+</mapper>

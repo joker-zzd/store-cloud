@@ -113,6 +113,10 @@ public class AuthServiceImpl implements AuthService {
         List<String> roles = userAuthInfo.roles() == null ? List.of() : userAuthInfo.roles();
         String accessTokenId = UUID.randomUUID().toString();
         String refreshTokenId = UUID.randomUUID().toString();
+        String userType = userAuthInfo.userType();
+        if (!StringUtils.hasText(userType)) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "userType must not be blank");
+        }
 
         String accessToken = JwtTokenUtils.createToken(
                 authJwtProperties.getSecret(),
@@ -122,6 +126,7 @@ public class AuthServiceImpl implements AuthService {
                         userAuthInfo.username(),
                         userAuthInfo.nickname(),
                         roles,
+                        userType,
                         accessTokenId,
                         AuthConstants.ACCESS_TOKEN
                 )
@@ -135,6 +140,7 @@ public class AuthServiceImpl implements AuthService {
                         userAuthInfo.username(),
                         userAuthInfo.nickname(),
                         roles,
+                        userType,
                         refreshTokenId,
                         AuthConstants.REFRESH_TOKEN
                 )

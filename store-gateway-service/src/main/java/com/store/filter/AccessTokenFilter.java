@@ -62,6 +62,7 @@ public class AccessTokenFilter implements GlobalFilter, Ordered {
                 .header(AuthConstants.HEADER_USERNAME, claims.username() == null ? "" : claims.username())
                 .header(AuthConstants.HEADER_NICKNAME, claims.nickname() == null ? "" : claims.nickname())
                 .header(AuthConstants.HEADER_USER_ROLES, String.join(",", claims.roles() == null ? List.of() : claims.roles()))
+                .header(AuthConstants.HEADER_USER_TYPE, claims.userType() == null ? "" : claims.userType())
                 .build();
         return chain.filter(exchange.mutate().request(request).build());
     }
@@ -98,3 +99,4 @@ public class AccessTokenFilter implements GlobalFilter, Ordered {
         }
     }
 }
+

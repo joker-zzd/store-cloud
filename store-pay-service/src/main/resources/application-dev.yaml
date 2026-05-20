@@ -1,0 +1,52 @@
+server:
+  port: 8008
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  application:
+    name: pay-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+  config:
+    import: optional:nacos:${spring.application.name}.yaml
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/store?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1234
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+
+springdoc:
+  api-docs:
+    path: /file/v3/api-docs
+  swagger-ui:
+    enabled: false
+
+wechat:
+  subscription:
+    app-id: XXX
+    mch-id: XXX
+    sub-app-id: XXX
+    sub-mch-id: XXX
+    api-v2-key: XXX
+    api-v3-key: XXX
+    mch-serial-no: XXX
+    private-key-path: XXX
+    sign-type: HMAC-SHA256
+    trade-type: APP
+    contract-order-url: https://api.mch.weixin.qq.com/pay/contractorder
+    partner-pre-entrust-web-url: https://api.mch.weixin.qq.com/papay/partner/preentrustweb
+    pay-notify-url: https://你的域名/api/pay/wechat/pay/notify
+    contract-notify-url: https://你的域名/api/pay/wechat/contract/notify

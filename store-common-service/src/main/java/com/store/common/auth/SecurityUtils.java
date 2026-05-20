@@ -75,4 +75,22 @@ public final class SecurityUtils {
         }
         return attributes.getRequest();
     }
+
+    public static String getUserType() {
+        return getRequiredHeader(AuthConstants.HEADER_USER_TYPE);
+    }
+
+    public static Long getMemberId() {
+        if (!AuthConstants.USER_TYPE_MEMBER.equals(getUserType())) {
+            throw new BusinessException("当前登录用户不是前台会员");
+        }
+        return getUserId();
+    }
+
+    public static Long getAdminId() {
+        if (!AuthConstants.USER_TYPE_ADMIN.equals(getUserType())) {
+            throw new BusinessException("当前登录用户不是后台用户");
+        }
+        return getUserId();
+    }
 }

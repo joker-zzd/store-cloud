@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.mapper.UserMemberInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.store.domain.UserMemberInfo">
+            <id property="id" column="id" />
+            <result property="userId" column="user_id" />
+            <result property="levelId" column="level_id" />
+            <result property="startTime" column="start_time" />
+            <result property="endTime" column="end_time" />
+            <result property="memberStatus" column="member_status" />
+            <result property="integral" column="integral" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,level_id,start_time,end_time,member_status,
+        integral,create_time,update_time
+    </sql>
+</mapper>

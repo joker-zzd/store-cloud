@@ -24,6 +24,10 @@ public class AliyunOssProperties {
      */
     private String bucketName;
 
+    private String accessKeyId;
+
+    private String accessKeySecret;
+
     /**
      * 对象统一前缀，例如 store-cloud。
      */

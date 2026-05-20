@@ -7,6 +7,7 @@ public record JwtUserClaims(
         String username,
         String nickname,
         List<String> roles,
+        String userType,
         String tokenId,
         String tokenType
 ) {

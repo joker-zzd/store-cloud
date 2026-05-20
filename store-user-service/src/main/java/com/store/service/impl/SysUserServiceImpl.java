@@ -3,6 +3,7 @@ package com.store.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.store.client.AuthServiceClient;
+import com.store.common.auth.AuthConstants;
 import com.store.common.auth.UserContext;
 import com.store.common.auth.dto.UserAuthInfo;
 import com.store.common.resultvo.ResultVO;
@@ -52,7 +53,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, User>
                 user.getNickname(),
                 user.getPassword(),
                 user.getStatus(),
-                roles == null ? List.of() : roles
+                roles == null ? List.of() : roles,
+                AuthConstants.USER_TYPE_ADMIN
         );
     }
 
